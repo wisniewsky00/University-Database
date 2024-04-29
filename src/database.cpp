@@ -1,4 +1,5 @@
 #include "database.hpp"
+#include <iostream>
 
 bool Database::add(const Student & s)
 {
@@ -8,4 +9,14 @@ bool Database::add(const Student & s)
     } else {
         return false;
     }
+}
+
+void Database::display() const
+{
+    std::cout << show();
+}
+
+std::string Database::show() const
+{
+    return "";
 }
