@@ -23,3 +23,8 @@ std::string Student::getGender() const
 {
   return gender_ == Gender::Male ? "Male" : "Female";
 }
+
+std::string Student::getLastName() const
+{
+  return lastName_;
+}

@@ -19,3 +19,11 @@ std::string Database::show() const
     }
     return result;
 }
+
+std::string Database::findByLastName(const std::string & lastName) const
+{
+    for(auto && student : students_){
+        if (lastName == student.getLastName()) return student.show();
+    }
+    return "The lastname '" + lastName + "' was not found in the database";
+}
