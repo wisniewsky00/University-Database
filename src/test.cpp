@@ -34,10 +34,13 @@ TEST_F(DatabaseTest, DisplayEmptyDb) {
 TEST_F(DatabaseTest, DisplayNonEmptyDb) 
  {
   db.add(adam);
+  db.add(natalia);
   // check adding the same person twice
 
   auto content = db.show();
-  auto expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male";
+  auto expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male\n"
+                  "Natalia Nowak; ul. Mila 3, 00-200 Warszawa; 654321; 76544332211; Female\n"; 
+                  
   EXPECT_EQ(content, expected);
 }
 
