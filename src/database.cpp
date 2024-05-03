@@ -26,5 +26,13 @@ std::string Database::findByLastName(const std::string & lastName) const
     for(auto && student : students_){
         if (lastName == student.getLastName()) result += student.show() + '\n';
     }
-    return result.empty() ? "The lastname '" + lastName + "' was not found in the database" : result;  
+    return result.empty() ? "The lastname '" + lastName + "' was not found in the database.\n" : result;  
+}
+
+std::string Database::findByPESEL(const std::string & PESEL) const
+{
+    for(auto && student : students_){
+        if(PESEL == student.getPESEL()) return student.show() + '\n';
+    }
+    return "Student with PESEL '" + PESEL + "' was not found in the database.\n";
 }

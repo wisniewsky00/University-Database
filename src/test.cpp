@@ -60,7 +60,7 @@ TEST_F(DatabaseTest, FindByLastName)
   EXPECT_EQ(content, expected);
 
   content = db.findByLastName("Nowak");
-  expected = "The lastname 'Nowak' was not found in the database";
+  expected = "The lastname 'Nowak' was not found in the database.\n";
 
   db.add(natalia);
   content = db.findByLastName("Nowak");
@@ -74,5 +74,18 @@ TEST_F(DatabaseTest, FindByLastName)
              "Kamil Kowalski; ul. Polna 8, 00-200 Warszawa; 149321; 11332244567; Male\n";
 
   EXPECT_EQ(content, expected);
+}
+
+TEST_F(DatabaseTest, FindyByPESEL)
+{
+  db.add(adam);
+
+  auto content = db.findByPESEL("11223344567");
+  auto expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male\n";
+  EXPECT_EQ(content, expected);
+
+  content = db.findByPESEL("11223344568");
+  expected = "Student with PESEL '11223344568' was not found in the database.\n";
+
 }
 

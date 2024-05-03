@@ -17,6 +17,7 @@ public:
             Gender gender);
     std::string show() const;
     std::string getLastName() const;
+    std::string getPESEL() const;
 
 private:
     std::string name_;
