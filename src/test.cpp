@@ -7,6 +7,7 @@ struct DatabaseTest : ::testing::Test
   Database db;
   Student adam;
   Student natalia;
+  Student kamil;
 
   DatabaseTest(): adam("Adam",
           "Kowalski", 
@@ -20,7 +21,14 @@ struct DatabaseTest : ::testing::Test
           "ul. Mila 3, 00-200 Warszawa",
           654321,
           "76544332211",
-          Gender::Female)
+          Gender::Female),
+
+          kamil("Kamil",
+          "Kowalski",
+          "ul. Polna 8, 00-200 Warszawa",
+          149321,
+          "11332244567",
+          Gender::Male)
   { }
 };
 
@@ -48,7 +56,7 @@ TEST_F(DatabaseTest, FindByLastName)
 {
   db.add(adam);
   auto content = db.findByLastName("Kowalski");
-  auto expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male";
+  auto expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male\n";
   EXPECT_EQ(content, expected);
 
   content = db.findByLastName("Nowak");
@@ -56,7 +64,15 @@ TEST_F(DatabaseTest, FindByLastName)
 
   db.add(natalia);
   content = db.findByLastName("Nowak");
-  expected = "Natalia Nowak; ul. Mila 3, 00-200 Warszawa; 654321; 76544332211; Female";
+  expected = "Natalia Nowak; ul. Mila 3, 00-200 Warszawa; 654321; 76544332211; Female\n";
+  EXPECT_EQ(content, expected);
+
+
+  db.add(kamil);
+  content = db.findByLastName("Kowalski");
+  expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male\n"
+             "Kamil Kowalski; ul. Polna 8, 00-200 Warszawa; 149321; 11332244567; Male\n";
+
   EXPECT_EQ(content, expected);
 }
 
