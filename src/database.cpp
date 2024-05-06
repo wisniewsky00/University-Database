@@ -3,6 +3,12 @@
 
 void Database::add(const Student & s)
 {
+    for(auto && student : students_)
+    {
+        if (student.getPESEL() == s.getPESEL()){
+            std::cout << "Student with PESEL '" + s.getPESEL() + "' is already in the database";
+        }; 
+    }
     students_.push_back(s);
 }
 
