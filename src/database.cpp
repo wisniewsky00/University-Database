@@ -67,3 +67,17 @@ std::string Database::sortByPESEL(const sortingType & s) const
     }
     return result;
 }
+
+std::string Database::sortByLastName() const
+{
+    std::vector<Student> sortedStudents = students_;  
+    std::string result = "";
+    
+    sort(sortedStudents.begin(), sortedStudents.end(), [](Student &a, Student &b)
+    {
+        return a.getLastName() < b.getLastName();
+    });
+
+    for(auto && student : sortedStudents) result += student.show() + '\n';
+    return result;
+}

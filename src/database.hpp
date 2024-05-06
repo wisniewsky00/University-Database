@@ -16,6 +16,7 @@ public:
     std::string findByLastName(const std::string & lastName) const;
     std::string findByPESEL(const std::string & PESEL) const;
     std::string sortByPESEL(const sortingType & s) const;
+    std::string sortByLastName() const;
 private:
     std::vector<Student> students_;
 };
