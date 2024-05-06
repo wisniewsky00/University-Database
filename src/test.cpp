@@ -88,3 +88,22 @@ TEST_F(DatabaseTest, FindyByPESEL)
 
 }
 
+TEST_F(DatabaseTest, SortByPESEL)
+{
+  db.add(adam);
+  db.add(kamil);
+  db.add(natalia);
+
+  auto content = db.sortByPESEL(sortingType::ASC);
+  auto expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male\n"
+                  "Kamil Kowalski; ul. Polna 8, 00-200 Warszawa; 149321; 11332244567; Male\n"
+                  "Natalia Nowak; ul. Mila 3, 00-200 Warszawa; 654321; 76544332211; Female\n";
+  EXPECT_EQ(content, expected);
+
+  content = db.sortByPESEL(sortingType::DESC);
+  expected = "Natalia Nowak; ul. Mila 3, 00-200 Warszawa; 654321; 76544332211; Female\n"
+             "Kamil Kowalski; ul. Polna 8, 00-200 Warszawa; 149321; 11332244567; Male\n"
+             "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male\n";
+  EXPECT_EQ(content, expected);
+}
+

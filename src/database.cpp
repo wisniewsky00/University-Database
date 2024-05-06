@@ -42,3 +42,28 @@ std::string Database::findByPESEL(const std::string & PESEL) const
     }
     return "Student with PESEL '" + PESEL + "' was not found in the database.\n";
 }
+
+std::string Database::sortByPESEL(const sortingType & s) const
+{
+    std::vector<Student> sortedStudents = students_;  
+    std::string result = "";
+
+    if(s == sortingType::ASC){
+        std::sort(sortedStudents.begin(), sortedStudents.end(), [](const Student & a, const Student & b)
+        {
+           return a.getPESEL() < b.getPESEL();
+        });
+
+        for(auto && student : sortedStudents) result += student.show() + '\n';
+    }
+    else{
+        std::sort(sortedStudents.begin(), sortedStudents.end(), [](const Student & a, const Student & b)
+        {
+           return a.getPESEL() > b.getPESEL();
+        });
+
+        for(auto && student : sortedStudents) result += student.show() + '\n';
+
+    }
+    return result;
+}
