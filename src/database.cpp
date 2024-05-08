@@ -43,7 +43,7 @@ std::string Database::findByPESEL(const std::string & PESEL) const
     return "Student with PESEL '" + PESEL + "' was not found in the database.\n";
 }
 
-std::string Database::sortByPESEL(const sortingType & s) const
+std::string Database::sortByPESEL(const sortingType & s)
 {
     std::vector<Student> sortedStudents = students_;  
     std::string result = "";
@@ -68,7 +68,7 @@ std::string Database::sortByPESEL(const sortingType & s) const
     return result;
 }
 
-std::string Database::sortByLastName() const
+std::string Database::sortByLastName()
 {
     std::vector<Student> sortedStudents = students_;  
     std::string result = "";
@@ -80,4 +80,16 @@ std::string Database::sortByLastName() const
 
     for(auto && student : sortedStudents) result += student.show() + '\n';
     return result;
+}
+
+void Database::deleteByIndexNumber(const int & indexNumber)
+{
+    for(size_t i = 0; i < students_.size(); i++){
+        if(students_[i].getIndexNumber() == indexNumber){
+            students_.erase(students_.begin() + i);
+            return;
+        }
+    }
+
+    std::cout << "Student with index number '" << indexNumber << "' was not found in the database";
 }

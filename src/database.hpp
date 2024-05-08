@@ -15,8 +15,9 @@ public:
     std::string show() const;
     std::string findByLastName(const std::string & lastName) const;
     std::string findByPESEL(const std::string & PESEL) const;
-    std::string sortByPESEL(const sortingType & s) const;
-    std::string sortByLastName() const;
+    std::string sortByPESEL(const sortingType & s);
+    std::string sortByLastName();
+    void deleteByIndexNumber(const int & indexNumber);
 private:
     std::vector<Student> students_;
 };

@@ -18,6 +18,7 @@ public:
     std::string show() const;
     std::string getLastName() const;
     std::string getPESEL() const;
+    int getIndexNumber() const;
 
 private:
     std::string name_;

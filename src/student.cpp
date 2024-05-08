@@ -33,3 +33,8 @@ std::string Student::getPESEL() const
 {
   return pesel_;
 }
+
+int Student::getIndexNumber() const
+{
+  return indexNumber_;
+}
