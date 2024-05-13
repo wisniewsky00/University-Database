@@ -152,3 +152,22 @@ TEST_F(DatabaseTest, DeleteByIndexNumber)
   EXPECT_EQ(content, expected);
 
 }
+
+TEST_F(DatabaseTest, ValidatePESEL)
+{
+  Student marta("Marta", "Janowska", 
+                "ul. Sucha 1, 00-200 Warszawa", 140012, 
+                "12345678901", Gender::Female);
+
+  auto content = marta.isPESELValid();
+  auto expected = false;
+  EXPECT_EQ(content, expected);
+
+  Student rafal("Rafal", "Dobry",
+                "ul Lesna 21, 00-200 Warszawa", 567102,
+                "55030101230", Gender::Male);
+  
+  content = rafal.isPESELValid();
+  expected = true;
+  EXPECT_EQ(content, expected);
+}

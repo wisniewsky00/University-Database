@@ -19,6 +19,7 @@ public:
     std::string getLastName() const;
     std::string getPESEL() const;
     int getIndexNumber() const;
+    bool isPESELValid() const;
 
 private:
     std::string name_;

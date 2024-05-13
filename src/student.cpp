@@ -38,3 +38,22 @@ int Student::getIndexNumber() const
 {
   return indexNumber_;
 }
+
+bool Student::isPESELValid() const
+{
+  if(pesel_.length() != 11) return false;
+
+  const int multipielrs[4] = {1, 3, 7, 9};
+  int sum = 0;
+
+  for(unsigned int i = 0; i < pesel_.length() - 1; i++)
+  {
+    sum += multipielrs[i % 4] * (pesel_[i] - '0');
+  }
+
+  int checkDigit;
+  sum % 10 == 0 ? checkDigit = 0 : checkDigit = 10 - (sum % 10);
+
+  if(checkDigit == pesel_[10] - '0') return true;
+  else return false;
+}
