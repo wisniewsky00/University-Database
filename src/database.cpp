@@ -1,5 +1,6 @@
 #include "database.hpp"
 #include <iostream>
+#include <fstream>
 
 void Database::add(const Student & s)
 {
@@ -90,6 +91,34 @@ void Database::deleteByIndexNumber(const int & indexNumber)
             return;
         }
     }
-
     std::cout << "Student with index number '" << indexNumber << "' was not found in the database";
+}
+
+std::string Database::saveToFile(const std::string fileName)
+{
+    std::ifstream file;
+    file.open(fileName);
+
+    if (file) {
+        file.close();
+        return "File '" + fileName + "' already exists.\n";
+    }
+    else {
+        std::ofstream outputFile(fileName, std::ios::out | std::ios::binary);
+
+        if (outputFile) {
+            size_t numStudents = students_.size();
+            outputFile.write((char*) &numStudents, sizeof(numStudents));
+
+            for(auto && student : students_) {
+                outputFile.write((char*) &student, sizeof(student));
+            }
+            outputFile.close();
+            return "File '" + fileName + "' was successfully created.\n";
+        }
+        else {
+            outputFile.close();
+            return "Failed to open file '" + fileName + "' for writing\n";
+        }
+    }
 }

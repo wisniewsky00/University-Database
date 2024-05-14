@@ -171,3 +171,20 @@ TEST_F(DatabaseTest, ValidatePESEL)
   expected = true;
   EXPECT_EQ(content, expected);
 }
+
+TEST_F(DatabaseTest, SaveDbToFile)
+{
+  db.add(adam);
+  db.add(kamil);
+  db.add(natalia);
+
+  auto content = db.saveToFile("Database1");
+  auto expected = "File 'Database1' was successfully created.\n";
+  EXPECT_EQ(content, expected);
+
+  content = db.saveToFile("Database1");
+  expected = "File 'Database1' already exists.\n";;
+  EXPECT_EQ(content, expected);
+}
+
+
