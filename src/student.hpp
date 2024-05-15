@@ -15,9 +15,13 @@ public:
             int indexNumber,
             std::string pesel,
             Gender gender);
+    Student();
     std::string show() const;
     std::string getLastName() const;
     std::string getPESEL() const;
+    Gender getGender() const;
+    std::string getName() const;
+    std::string getAddress() const;
     int getIndexNumber() const;
     bool isPESELValid() const;
 
@@ -28,5 +32,5 @@ private:
     int indexNumber_;
     std::string pesel_;
     Gender gender_;
-    std::string getGender() const;
+    std::string getgender() const;
 };

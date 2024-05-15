@@ -99,8 +99,8 @@ TEST_F(DatabaseTest, FindyByPESEL)
 TEST_F(DatabaseTest, SortByPESEL)
 {
   db.add(adam);
-  db.add(kamil);
   db.add(natalia);
+  db.add(kamil);
 
   auto content = db.sortByPESEL(sortingType::ASC);
   auto expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male\n"
@@ -174,12 +174,15 @@ TEST_F(DatabaseTest, ValidatePESEL)
 
 TEST_F(DatabaseTest, SaveDbToFile)
 {
+  auto content = db.saveToFile("Database0");
+  auto expected = "Database is empty.\n";
+
   db.add(adam);
   db.add(kamil);
   db.add(natalia);
 
-  auto content = db.saveToFile("Database1");
-  auto expected = "File 'Database1' was successfully created.\n";
+  content = db.saveToFile("Database1");
+  expected = "File 'Database1' was successfully created.\n";
   EXPECT_EQ(content, expected);
 
   content = db.saveToFile("Database1");
@@ -187,4 +190,28 @@ TEST_F(DatabaseTest, SaveDbToFile)
   EXPECT_EQ(content, expected);
 }
 
+TEST_F(DatabaseTest, ReadDbFromFile)
+{
+  auto content = db.readFromFile("WrongFileName");
+  auto expected = "Failed to open file 'WrongFileName' for reading\n";
+  EXPECT_EQ(content, expected);
+
+  content = db.readFromFile("emptyFile");
+  expected = "File 'emptyFile' is empty.\n";
+  EXPECT_EQ(content, expected);
+
+  content = db.readFromFile("Database1");
+  expected = "Database was successfully read from 'Database1' file";
+  EXPECT_EQ(content, expected);
+
+  content = db.show();
+  expected = "Adam Kowalski; ul. Dobra 14, 00-200 Warszawa; 123456; 11223344567; Male\n"
+             "Kamil Kowalski; ul. Polna 8, 00-200 Warszawa; 149321; 11332244567; Male\n"
+             "Natalia Nowak; ul. Mila 3, 00-200 Warszawa; 654321; 76544332211; Female\n";
+  EXPECT_EQ(content, expected);
+
+  content = db.readFromFile("Database1");
+  expected = "Current database is not empty.\n";
+  EXPECT_EQ(content, expected);
+}
 

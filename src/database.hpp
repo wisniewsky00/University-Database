@@ -18,7 +18,8 @@ public:
     std::string sortByPESEL(const sortingType & s);
     std::string sortByLastName();
     void deleteByIndexNumber(const int & indexNumber);
-    std::string saveToFile(const std::string fileName);
+    std::string saveToFile(const std::string & fileName);
+    std::string readFromFile(const std::string & fileName);
 private:
     std::vector<Student> students_;
 };

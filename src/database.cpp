@@ -94,8 +94,10 @@ void Database::deleteByIndexNumber(const int & indexNumber)
     std::cout << "Student with index number '" << indexNumber << "' was not found in the database";
 }
 
-std::string Database::saveToFile(const std::string fileName)
+std::string Database::saveToFile(const std::string & fileName)
 {
+    if(students_.empty()) return "Database is empty.\n";
+
     std::ifstream file;
     file.open(fileName);
 
@@ -103,22 +105,84 @@ std::string Database::saveToFile(const std::string fileName)
         file.close();
         return "File '" + fileName + "' already exists.\n";
     }
-    else {
-        std::ofstream outputFile(fileName, std::ios::out | std::ios::binary);
+    file.close();
 
-        if (outputFile) {
-            size_t numStudents = students_.size();
-            outputFile.write((char*) &numStudents, sizeof(numStudents));
+    std::ofstream outputFile(fileName, std::ios::out | std::ios::binary);
+    if (!outputFile) return "Failed to open file '" + fileName + "' for writing\n";
 
-            for(auto && student : students_) {
-                outputFile.write((char*) &student, sizeof(student));
-            }
-            outputFile.close();
-            return "File '" + fileName + "' was successfully created.\n";
-        }
-        else {
-            outputFile.close();
-            return "Failed to open file '" + fileName + "' for writing\n";
-        }
+    size_t numStudents = students_.size();
+    outputFile.write((char*) &numStudents, sizeof(numStudents));
+
+    std::string name, lastName, address, pesel;
+    int indexNumber, genderValue;
+    Gender gender;
+
+    for(auto && student : students_) {
+        name = student.getName() + ';';
+        outputFile.write(name.c_str(), name.size());
+
+        lastName = student.getLastName() + ';';
+        outputFile.write(lastName.c_str(), lastName.size());
+
+        address = student.getAddress() + ';';
+        outputFile.write(address.c_str(), address.size());
+
+        pesel = student.getPESEL() + ';';
+        outputFile.write(pesel.c_str(), pesel.size());
+
+        indexNumber = student.getIndexNumber();
+        outputFile.write((char*) &indexNumber, sizeof(indexNumber));
+
+        gender = student.getGender();
+        genderValue = static_cast<int>(gender);
+        outputFile.write((char*) &genderValue, sizeof(genderValue));
     }
+    outputFile.close();
+    return "File '" + fileName + "' was successfully created.\n";
+    
+}
+
+std::string Database::readFromFile(const std::string & fileName)
+{
+    std::ifstream inputFile(fileName, std::ios::in | std::ios::binary);
+    if (!inputFile) {
+        return "Failed to open file '" + fileName + "' for reading\n";
+    }
+
+    if(!students_.empty()){
+        return "Current database is not empty.\n";
+    }
+
+    inputFile.seekg(0, std::ios::end);
+    if (inputFile.tellg() == 0) {
+        inputFile.close();
+        return "File '" + fileName + "' is empty.\n";
+    }
+
+    inputFile.seekg(0, std::ios::beg);
+
+    size_t numStudents = 0;
+    inputFile.read((char*) &numStudents, sizeof(numStudents));
+
+    std::string name, lastName, address, pesel;
+    int indexNumber, genderValue;
+    Gender gender;
+
+    for(unsigned int i = 0; i < numStudents; i++){
+
+        std::getline(inputFile, name, ';');
+        std::getline(inputFile, lastName, ';');
+        std::getline(inputFile, address, ';');
+        std::getline(inputFile, pesel, ';');
+
+        inputFile.read((char*) &indexNumber, sizeof(indexNumber));
+        inputFile.read((char*) &genderValue, sizeof(genderValue));
+        gender = static_cast<Gender>(genderValue);
+
+        Student student(name, lastName, address, indexNumber, pesel, gender);
+        students_.push_back(student);
+    }
+
+    inputFile.close();
+    return "Database was successfully read from '" + fileName + "' file";
 }

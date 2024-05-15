@@ -8,6 +8,7 @@ Student::Student(std::string name,
     : name_(name), lastName_(lastName), address_(address),
       indexNumber_(indexNumber), pesel_(pesel), gender_(gender)
 {}
+Student::Student(){};
 
 std::string Student::show() const
 {
@@ -16,12 +17,17 @@ std::string Student::show() const
     + address_ + "; " 
     + std::to_string(indexNumber_) + "; " 
     + pesel_ + "; " 
-    + getGender();
+    + getgender();
 }
 
-std::string Student::getGender() const
+std::string Student::getgender() const
 {
   return gender_ == Gender::Male ? "Male" : "Female";
+}
+
+Gender Student::getGender() const
+{
+  return gender_;
 }
 
 std::string Student::getLastName() const
@@ -37,6 +43,16 @@ std::string Student::getPESEL() const
 int Student::getIndexNumber() const
 {
   return indexNumber_;
+}
+
+std::string Student::getName() const
+{
+  return name_;
+}
+
+std::string Student::getAddress() const
+{
+  return address_;
 }
 
 bool Student::isPESELValid() const
