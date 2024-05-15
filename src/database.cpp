@@ -83,15 +83,15 @@ std::string Database::sortByLastName()
     return result;
 }
 
-void Database::deleteByIndexNumber(const int & indexNumber)
+std::string Database::deleteByIndexNumber(const int & indexNumber)
 {
     for(size_t i = 0; i < students_.size(); i++){
         if(students_[i].getIndexNumber() == indexNumber){
             students_.erase(students_.begin() + i);
-            return;
+            return "Student with index number '" + std::to_string(indexNumber) + "' was deleted from database.\n";
         }
     }
-    std::cout << "Student with index number '" << indexNumber << "' was not found in the database";
+    return "Student with index number '" + std::to_string(indexNumber) + "' was not found in the database.\n";
 }
 
 std::string Database::saveToFile(const std::string & fileName)
