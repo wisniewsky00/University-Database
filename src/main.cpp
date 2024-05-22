@@ -9,6 +9,7 @@ int countDigit(long long n);
 int main(){
     Database db;
     int choice;
+    std::string lastName, PESEL;
 
     do{
         printMenu();
@@ -22,6 +23,11 @@ int main(){
                 std::cout << std::endl;
                 db.display();
                 std::cout << std::endl;
+                break;
+            case 3:
+                std::cout << "\nEnter a last name to search for: ";
+                std::cin >> lastName;
+                std::cout << "\n" << db.findByLastName(lastName) << std::endl;
                 break;   
         }
 
