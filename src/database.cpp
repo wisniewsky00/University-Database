@@ -14,7 +14,7 @@ void Database::add(const Student & s)
 }
 
 void Database::display() const
-{
+{    
     std::cout << show();
 }
 
@@ -24,7 +24,8 @@ std::string Database::show() const
     for(auto && student : students_){
         result += student.show() + '\n';
     }
-    return result;
+    if(result == "") return "The database is empty.\n";
+    else return result;
 }
 
 std::string Database::findByLastName(const std::string & lastName) const

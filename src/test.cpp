@@ -43,7 +43,7 @@ struct DatabaseTest : ::testing::Test
 TEST_F(DatabaseTest, DisplayEmptyDb) {
 
   auto content = db.show();
-  auto expected = "";
+  auto expected = "The database is empty.\n";
   EXPECT_EQ(content, expected);
 }
 

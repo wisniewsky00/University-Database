@@ -16,11 +16,16 @@ int main(){
         
         switch(choice){
             case 1:
-            addStudent(db);
-            break;
+                addStudent(db);
+                break;
+            case 2:
+                std::cout << std::endl;
+                db.display();
+                std::cout << std::endl;
+                break;
+            case 3:
+                
         }
-
-
 
     }while(choice != 0);
 
