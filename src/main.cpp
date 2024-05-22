@@ -9,7 +9,7 @@ int countDigit(long long n);
 int main(){
     Database db;
     int choice, indexNumber;
-    std::string lastName, PESEL, sortType;
+    std::string lastName, PESEL, sortType, fileName;
     sortingType type;
 
     do{
@@ -37,7 +37,7 @@ int main(){
                 break;
             case 5:
                 do{
-                  std::cout << "Enter a sort type (ASC or DESC): ";
+                  std::cout << "\nEnter a sort type (ASC or DESC): ";
                   std::cin >> sortType;
                   if(sortType == "ASC") {
                     type = sortingType::ASC;
@@ -56,7 +56,7 @@ int main(){
                 break;
             case 7:
                 do{
-                    std::cout << "Enter index number: ";
+                    std::cout << "\nEnter index number: ";
                     std::cin >> indexNumber;
                     if(countDigit(indexNumber) != 6){
                         std::cout << "The index number must consist of 6 digits! Please try again." << std::endl;
@@ -65,6 +65,11 @@ int main(){
 
                 std::cout << "\n" << db.deleteByIndexNumber(indexNumber) << std::endl;
                 break;
+            case 8:
+                std::cout << "\nEnter file name: ";
+                std::cin >> fileName;
+                std::cout << "\n" << db.saveToFile(fileName) << std::endl;
+                break;                
         }
 
     }while(choice != 0);
