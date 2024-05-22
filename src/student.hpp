@@ -22,6 +22,7 @@ public:
     Gender getGender() const;
     std::string getName() const;
     std::string getAddress() const;
+    void setPESEL(std::string PESEL);
     int getIndexNumber() const;
     bool isPESELValid() const;
 

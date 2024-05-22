@@ -55,6 +55,10 @@ std::string Student::getAddress() const
   return address_;
 }
 
+void Student::setPESEL(std::string PESEL){
+  pesel_ = PESEL; 
+}
+
 bool Student::isPESELValid() const
 {
   if(pesel_.length() != 11) return false;
