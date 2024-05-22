@@ -194,5 +194,5 @@ std::string Database::readFromFile(const std::string & fileName)
     }
 
     inputFile.close();
-    return "Database was successfully read from '" + fileName + "' file";
+    return "Database was successfully read from '" + fileName + "' file\n";
 }

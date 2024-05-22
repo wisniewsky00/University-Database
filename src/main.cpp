@@ -69,6 +69,11 @@ int main(){
                 std::cout << "\nEnter file name: ";
                 std::cin >> fileName;
                 std::cout << "\n" << db.saveToFile(fileName) << std::endl;
+                break;
+            case 9:
+                std::cout << "\nEnter file name: ";
+                std::cin >> fileName;
+                std::cout << "\n" << db.readFromFile(fileName) << std::endl;
                 break;                
         }
 
