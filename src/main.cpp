@@ -31,8 +31,13 @@ int main(){
                 std::cout << "\n" << db.findByLastName(lastName) << std::endl;
                 break;
             case 4:
-                std::cout << "\nEnter a PESEL to search for: ";
-                std::cin >> PESEL;
+                do{
+                    std::cout << "\nEnter a PESEL to search for: ";
+                    std::cin >> PESEL;
+                    if(PESEL.length() != 11) std::cout << "The PESEL must consist of 11 digits!\n";
+                    else break;
+                }while(true);
+                
                 std::cout << "\n" << db.findByPESEL(PESEL) << std::endl;
                 break;
             case 5:
