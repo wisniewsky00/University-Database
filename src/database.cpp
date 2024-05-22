@@ -90,7 +90,7 @@ std::string Database::sortByLastName()
     });
 
     for(auto && student : sortedStudents) result += student.show() + '\n';
-    return result;
+    return result.empty() ? "The database is empty.\n"  : result;
 }
 
 std::string Database::deleteByIndexNumber(const int & indexNumber)

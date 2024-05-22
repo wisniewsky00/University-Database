@@ -50,6 +50,10 @@ int main(){
                 } while(true);
                 
                 std::cout << "\n" << db.sortByPESEL(type) << std::endl;
+                break;
+            case 6:
+                std::cout << "\n" << db.sortByLastName() << std::endl;
+                break;
         }
 
     }while(choice != 0);
