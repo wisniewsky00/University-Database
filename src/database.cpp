@@ -2,15 +2,22 @@
 #include <iostream>
 #include <fstream>
 
-void Database::add(const Student & s)
+bool Database::add(const Student & s)
 {
     for(auto && student : students_)
     {
         if (student.getPESEL() == s.getPESEL()){
-            std::cout << "Student with PESEL '" + s.getPESEL() + "' is already in the database";
-        }; 
+            std::cout << "\nStudent with PESEL '" + s.getPESEL() + "' is already in the database.\n";
+            return false;
+        };
+
+        if(student.getIndexNumber() == s.getIndexNumber()){
+            std::cout << "\nStudent with index number '" + std::to_string(s.getIndexNumber()) + "' is already in the database.\n\n";
+            return false;
+        } 
     }
     students_.push_back(s);
+    return true;
 }
 
 void Database::display() const

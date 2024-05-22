@@ -22,9 +22,7 @@ int main(){
                 std::cout << std::endl;
                 db.display();
                 std::cout << std::endl;
-                break;
-            case 3:
-                
+                break;   
         }
 
     }while(choice != 0);
@@ -97,9 +95,8 @@ void addStudent(Database & db){
     } while(true);
 
     Student newStudent(firstName, lastName, address, indexNumber, pesel, gender);
-    db.add(newStudent);
-    std::cout << "Student added successfully.\n" << std::endl;
-}
+    if(db.add(newStudent)) std::cout << "\nStudent added successfully.\n" << std::endl;
+}   
 ///////////////////////////////////////////////////////////
 int countDigit(long long n)
 {
