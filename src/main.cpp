@@ -28,7 +28,12 @@ int main(){
                 std::cout << "\nEnter a last name to search for: ";
                 std::cin >> lastName;
                 std::cout << "\n" << db.findByLastName(lastName) << std::endl;
-                break;   
+                break;
+            case 4:
+                std::cout << "\nEnter a PESEL to search for: ";
+                std::cin >> PESEL;
+                std::cout << "\n" << db.findByPESEL(PESEL) << std::endl;
+                break;
         }
 
     }while(choice != 0);

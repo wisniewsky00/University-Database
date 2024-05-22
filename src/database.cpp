@@ -46,6 +46,8 @@ std::string Database::findByLastName(const std::string & lastName) const
 
 std::string Database::findByPESEL(const std::string & PESEL) const
 {
+    if(PESEL.length() != 11) return "The PESEL must consist of 11 digits!\n";
+
     for(auto && student : students_){
         if(PESEL == student.getPESEL()) return student.show() + '\n';
     }
