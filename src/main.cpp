@@ -8,7 +8,7 @@ int countDigit(long long n);
 ///////////////////////////////////////////////////////////
 int main(){
     Database db;
-    int choice;
+    int choice, indexNumber;
     std::string lastName, PESEL, sortType;
     sortingType type;
 
@@ -53,6 +53,17 @@ int main(){
                 break;
             case 6:
                 std::cout << "\n" << db.sortByLastName() << std::endl;
+                break;
+            case 7:
+                do{
+                    std::cout << "Enter index number: ";
+                    std::cin >> indexNumber;
+                    if(countDigit(indexNumber) != 6){
+                        std::cout << "The index number must consist of 6 digits! Please try again." << std::endl;
+                    } else break;
+                } while(true);
+
+                std::cout << "\n" << db.deleteByIndexNumber(indexNumber) << std::endl;
                 break;
         }
 
