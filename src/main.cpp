@@ -9,7 +9,8 @@ int countDigit(long long n);
 int main(){
     Database db;
     int choice;
-    std::string lastName, PESEL;
+    std::string lastName, PESEL, sortType;
+    sortingType type;
 
     do{
         printMenu();
@@ -34,6 +35,21 @@ int main(){
                 std::cin >> PESEL;
                 std::cout << "\n" << db.findByPESEL(PESEL) << std::endl;
                 break;
+            case 5:
+                do{
+                  std::cout << "Enter a sort type (ASC or DESC): ";
+                  std::cin >> sortType;
+                  if(sortType == "ASC") {
+                    type = sortingType::ASC;
+                    break;
+                  } else if(sortType == "DESC") {
+                    type = sortingType::DESC;
+                    break;    
+                  } else std::cout << "The sort type given is incorrect! Please try again." << std::endl;
+
+                } while(true);
+                
+                std::cout << "\n" << db.sortByPESEL(type) << std::endl;
         }
 
     }while(choice != 0);

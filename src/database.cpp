@@ -76,7 +76,7 @@ std::string Database::sortByPESEL(const sortingType & s)
         for(auto && student : sortedStudents) result += student.show() + '\n';
 
     }
-    return result;
+    return result.empty() ? "The database is empty.\n"  : result;
 }
 
 std::string Database::sortByLastName()
