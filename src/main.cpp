@@ -5,6 +5,7 @@
 void printMenu();
 void addStudent(Database & db);
 int countDigit(long long n);
+int getIndexNumber();
 ///////////////////////////////////////////////////////////
 int main(){
     Database db;
@@ -17,6 +18,7 @@ int main(){
         std::cin >> choice;
         
         switch(choice){
+            case 0: break;
             case 1:
                 addStudent(db);
                 break;
@@ -26,18 +28,18 @@ int main(){
                 std::cout << std::endl;
                 break;
             case 3:
-                std::cout << "\nEnter a last name to search for: ";
+                std::cout << "\nEnter a last name to search: ";
                 std::cin >> lastName;
                 std::cout << "\n" << db.findByLastName(lastName) << std::endl;
                 break;
             case 4:
                 do{
-                    std::cout << "\nEnter a PESEL to search for: ";
+                    std::cout << "\nEnter a PESEL to search:";
                     std::cin >> PESEL;
                     if(PESEL.length() != 11) std::cout << "The PESEL must consist of 11 digits!\n";
                     else break;
-                }while(true);
-                
+                } while(true);
+
                 std::cout << "\n" << db.findByPESEL(PESEL) << std::endl;
                 break;
             case 5:
@@ -60,26 +62,22 @@ int main(){
                 std::cout << "\n" << db.sortByLastName() << std::endl;
                 break;
             case 7:
-                do{
-                    std::cout << "\nEnter index number: ";
-                    std::cin >> indexNumber;
-                    if(countDigit(indexNumber) != 6){
-                        std::cout << "The index number must consist of 6 digits! Please try again." << std::endl;
-                    } else break;
-                } while(true);
-
+                indexNumber = getIndexNumber();
                 std::cout << "\n" << db.deleteByIndexNumber(indexNumber) << std::endl;
                 break;
             case 8:
-                std::cout << "\nEnter file name: ";
+                std::cout << "\nEnter filename to savedatabase: ";
                 std::cin >> fileName;
                 std::cout << "\n" << db.saveToFile(fileName) << std::endl;
                 break;
             case 9:
-                std::cout << "\nEnter file name: ";
+                std::cout << "\nEnter filename to read database from: ";
                 std::cin >> fileName;
                 std::cout << "\n" << db.readFromFile(fileName) << std::endl;
-                break;                
+                break;
+            default:
+                std::cout << "\nInvalid choice. Please try again.\n" << std::endl;
+                break;          
         }
 
     }while(choice != 0);
@@ -116,14 +114,7 @@ void addStudent(Database & db){
     std::getline(std::cin, address);
     std::getline(std::cin, address);
 
-    do{
-        std::cout << "Enter index number: ";
-        std::cin >> indexNumber;
-        if(countDigit(indexNumber) != 6){
-            std::cout << "The index number must consist of 6 digits! Please try again." << std::endl;
-        } else break;
-
-    } while(true);
+    indexNumber = getIndexNumber();
 
     do{
        std::cout << "Enter PESEL: ";
@@ -134,27 +125,14 @@ void addStudent(Database & db){
           std::cout << "The pesel number given is incorrect! Please try again." << std::endl;
        }
     } while(true);
-    
-    do{
-       std::cout << "Enter gender (Male or Female): ";
-       std::cin >> gen;
-       if(gen == "Male"){
-            gender = Gender::Male;
-            break;
-       }
-       else if(gen == "Female"){
-            gender = Gender::Female;
-            break;
-       }
-       else{
-            std::cout << "The gender name given is incorrect! Please try again." << std::endl;
-       }
-    } while(true);
+
+    if(pesel.at(9) % 2) gender = Gender::Male;
+    else gender = Gender::Female;
 
     Student newStudent(firstName, lastName, address, indexNumber, pesel, gender);
     if(db.add(newStudent)) std::cout << "\nStudent added successfully.\n" << std::endl;
 }   
-///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 int countDigit(long long n)
 {
     if (n == 0)
@@ -166,4 +144,36 @@ int countDigit(long long n)
     }
     return count;
 }
-///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+int getIndexNumber(){
+
+    int indexNumber;
+    std::string index;
+    bool success;
+
+    do{
+        success = true;
+        std::cout << "Enter index number: ";
+        getline(std::cin, index);
+
+        for(unsigned int i = 0; i < index.length(); i++){
+            if(index[i] < 48 || index[i] > 57) {
+                std::cout << "Invalid characters entered! Allowed characters are numbers 0-9. Please try again" << std::endl;
+                success = false;
+                break;
+            }
+        }
+
+        if (success) {
+           indexNumber = std::stoi(index);
+           if(countDigit(indexNumber) != 6){
+                std::cout << "The index number must consist of 6 digits! Please try again." << std::endl;
+                success = false;
+            } 
+        }
+
+    } while(!success);
+
+    return indexNumber;
+}
+////////////////////////////////////////////////////////////////////////////////////////
