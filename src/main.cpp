@@ -6,6 +6,7 @@ void printMenu();
 void addStudent(Database & db);
 int countDigit(long long n);
 int getIndexNumber();
+std::string getPESEL();
 ///////////////////////////////////////////////////////////
 int main(){
     Database db;
@@ -33,13 +34,7 @@ int main(){
                 std::cout << "\n" << db.findByLastName(lastName) << std::endl;
                 break;
             case 4:
-                do{
-                    std::cout << "\nEnter a PESEL to search:";
-                    std::cin >> PESEL;
-                    if(PESEL.length() != 11) std::cout << "The PESEL must consist of 11 digits!\n";
-                    else break;
-                } while(true);
-
+                PESEL = getPESEL();
                 std::cout << "\n" << db.findByPESEL(PESEL) << std::endl;
                 break;
             case 5:
@@ -115,17 +110,8 @@ void addStudent(Database & db){
     std::getline(std::cin, address);
 
     indexNumber = getIndexNumber();
-
-    do{
-       std::cout << "Enter PESEL: ";
-       std::cin >> pesel;
-       student.setPESEL(pesel);
-       if(student.isPESELValid()) break;
-       else{
-          std::cout << "The pesel number given is incorrect! Please try again." << std::endl;
-       }
-    } while(true);
-
+    pesel = getPESEL();
+   
     if(pesel.at(9) % 2) gender = Gender::Male;
     else gender = Gender::Female;
 
@@ -177,3 +163,42 @@ int getIndexNumber(){
     return indexNumber;
 }
 ////////////////////////////////////////////////////////////////////////////////////////
+std::string getPESEL(){
+
+    Student student;
+    std::string pesel;
+    bool success;
+
+
+    do{
+        success = true;
+        std::cout << "Enter PESEL: ";
+        getline(std::cin, pesel);
+
+        for(unsigned int i = 0; i < pesel.length(); i++){
+            if(pesel[i] < 48 || pesel[i] > 57) {
+                std::cout << "Invalid characters entered! Allowed characters are numbers 0-9. Please try again" << std::endl;
+                success = false;
+                break;
+            }
+        }
+
+        if(success) {
+            if(pesel.length() != 11){
+                std::cout << "The PESEL must consist of 11 digits!\n";
+                success = false; 
+            } 
+        }
+
+        if(success){
+            student.setPESEL(pesel);
+            if(!student.isPESELValid()){
+                std::cout << "The pesel number given is incorrect! Please try again." << std::endl;
+                success = false;
+            }  
+        }
+
+    } while(!success);
+
+    return pesel;
+}
