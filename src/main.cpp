@@ -7,11 +7,12 @@ void addStudent(Database & db);
 int countDigit(long long n);
 int getIndexNumber();
 std::string getPESEL();
+sortingType getSortType();
 ///////////////////////////////////////////////////////////
 int main(){
     Database db;
     int choice, indexNumber;
-    std::string lastName, PESEL, sortType, fileName;
+    std::string lastName, PESEL, fileName;
     sortingType type;
 
     do{
@@ -38,19 +39,7 @@ int main(){
                 std::cout << "\n" << db.findByPESEL(PESEL) << std::endl;
                 break;
             case 5:
-                do{
-                  std::cout << "\nEnter a sort type (ASC or DESC): ";
-                  std::cin >> sortType;
-                  if(sortType == "ASC") {
-                    type = sortingType::ASC;
-                    break;
-                  } else if(sortType == "DESC") {
-                    type = sortingType::DESC;
-                    break;    
-                  } else std::cout << "The sort type given is incorrect! Please try again." << std::endl;
-
-                } while(true);
-                
+                type = getSortType();
                 std::cout << "\n" << db.sortByPESEL(type) << std::endl;
                 break;
             case 6:
@@ -201,4 +190,25 @@ std::string getPESEL(){
     } while(!success);
 
     return pesel;
+}
+////////////////////////////////////////////////////////////////////////////////////////
+sortingType getSortType(){
+
+    sortingType type;
+    std::string sortType;
+
+    do{
+        std::cout << "\nEnter a sort type (ASC or DESC): ";
+        std::cin >> sortType;
+        if(sortType == "ASC") {
+            type = sortingType::ASC;
+            break;
+        } else if(sortType == "DESC") {
+            type = sortingType::DESC;
+            break;    
+        } else std::cout << "The sort type given is incorrect! Please try again." << std::endl;
+
+        } while(true);
+
+    return type;
 }
