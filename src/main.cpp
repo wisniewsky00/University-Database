@@ -8,6 +8,7 @@ int countDigit(long long n);
 int getIndexNumber();
 std::string getPESEL();
 sortingType getSortType();
+void getFirstLastName(std::string & firstName, std::string & Lastname);
 ///////////////////////////////////////////////////////////
 int main(){
     Database db;
@@ -67,7 +68,7 @@ int main(){
     }while(choice != 0);
 
 }
-///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 void printMenu(){
 
     std::cout << "University Database Menu\n"
@@ -83,19 +84,16 @@ void printMenu(){
     << "0. Exit\n"
     << "Enter your choice: ";
 }
-///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 void addStudent(Database & db){
     Student student;
     std::string firstName, lastName, address, pesel, gen;
     Gender gender;
     int indexNumber;
 
-    std::cout << "\nEnter first name: ";
-    std::cin >> firstName;
-    std::cout << "Enter last name: ";
-    std::cin >> lastName;
+    getFirstLastName(firstName, lastName);
+
     std::cout << "Enter address: ";
-    std::getline(std::cin, address);
     std::getline(std::cin, address);
 
     indexNumber = getIndexNumber();
@@ -133,7 +131,7 @@ int getIndexNumber(){
 
         for(unsigned int i = 0; i < index.length(); i++){
             if(index[i] < 48 || index[i] > 57) {
-                std::cout << "Invalid characters entered! Allowed characters are numbers 0-9. Please try again" << std::endl;
+                std::cout << "Invalid characters entered! Allowed characters are numbers (0-9). Please try again" << std::endl;
                 success = false;
                 break;
             }
@@ -166,7 +164,7 @@ std::string getPESEL(){
 
         for(unsigned int i = 0; i < pesel.length(); i++){
             if(pesel[i] < 48 || pesel[i] > 57) {
-                std::cout << "Invalid characters entered! Allowed characters are numbers 0-9. Please try again" << std::endl;
+                std::cout << "Invalid characters entered! Allowed characters are numbers (0-9). Please try again" << std::endl;
                 success = false;
                 break;
             }
@@ -211,4 +209,41 @@ sortingType getSortType(){
         } while(true);
 
     return type;
+}
+////////////////////////////////////////////////////////////////////////////////////////
+void getFirstLastName(std::string & firstName, std::string & Lastname){
+    
+    
+    bool success;
+    getline(std::cin, firstName);
+
+    do{
+        success = true;
+
+        std::cout << "\nEnter first name: ";
+        getline(std::cin, firstName);
+
+        for(unsigned int i = 0; i < firstName.length(); i++){
+            if((firstName[i] >= 'A' && firstName[i] <= 'Z') || (firstName[i] >= 'a' && firstName[i] <= 'z'));
+            else {
+                std::cout << "Invalid characters entered! Allowed characters are letters (A-Z). Please try again" << std::endl;
+                success = false;
+                break;
+            }
+        }
+
+        if(success){
+            std::cout << "Enter last name: ";
+            getline(std::cin, Lastname);
+
+            for(unsigned int i = 0; i < Lastname.length(); i++){
+                if((Lastname[i] >= 'A' && Lastname[i] <= 'Z') || (Lastname[i] >= 'a' && Lastname[i] <= 'z'));
+                else {
+                    std::cout << "Invalid characters entered! Allowed characters are letters (A-Z). Please try again" << std::endl;
+                    success = false;
+                    break;
+                }
+            }   
+        }
+    } while(!success);
 }
