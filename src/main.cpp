@@ -50,7 +50,7 @@ int main(){
                 std::cout << "\n" << db.deleteByIndexNumber(indexNumber) << std::endl;
                 break;
             case 8:
-                std::cout << "\nEnter filename to savedatabase: ";
+                std::cout << "\nEnter filename to save database: ";
                 std::cin >> fileName;
                 std::cout << "\n" << db.saveToFile(fileName) << std::endl;
                 break;

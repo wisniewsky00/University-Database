@@ -183,8 +183,19 @@ std::string Database::readFromFile(const std::string & fileName)
         std::getline(inputFile, address, ';');
         std::getline(inputFile, pesel, ';');
 
+        if (inputFile.eof() || inputFile.fail()) {
+           inputFile.close();
+           return "Data reading error. Check the correctness of the file.\n"; 
+        }
+
         inputFile.read((char*) &indexNumber, sizeof(indexNumber));
         inputFile.read((char*) &genderValue, sizeof(genderValue));
+
+        if (inputFile.eof() || inputFile.fail()) {
+           inputFile.close();
+           return "Data reading error. Check the correctness of the file.\n"; 
+        }
+
         gender = static_cast<Gender>(genderValue);
 
         Student student(name, lastName, address, indexNumber, pesel, gender);
@@ -192,5 +203,5 @@ std::string Database::readFromFile(const std::string & fileName)
     }
 
     inputFile.close();
-    return "Database was successfully read from '" + fileName + "' file\n";
+    return "Database was successfully read from '" + fileName + "' file.\n";
 }

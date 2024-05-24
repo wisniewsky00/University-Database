@@ -204,7 +204,7 @@ TEST_F(DatabaseTest, ReadDbFromFile)
   EXPECT_EQ(content, expected);
 
   content = db.readFromFile("Database1");
-  expected = "Database was successfully read from 'Database1' file";
+  expected = "Database was successfully read from 'Database1' file.\n";
   EXPECT_EQ(content, expected);
 
   content = db.show();
