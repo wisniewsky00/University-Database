@@ -157,6 +157,14 @@ std::string Database::readFromFile(const std::string & fileName)
         return "Failed to open file '" + fileName + "' for reading\n";
     }
 
+    inputFile.seekg(0, std::ios::end);
+    if (inputFile.tellg() == 0) {
+        inputFile.close();
+        return "File '" + fileName + "' is empty.\n";
+    }
+
+    inputFile.seekg(0, std::ios::beg);
+
     std::string answer;
 
     if(!students_.empty()){
@@ -165,7 +173,6 @@ std::string Database::readFromFile(const std::string & fileName)
         std::cout << std::endl;
         do {
             if(answer == "Y" || answer == "y"){
-              students_.erase(students_.begin(), students_.end());
               break;  
             }
             else if (answer == "N" || answer == "n") return "";
@@ -176,21 +183,15 @@ std::string Database::readFromFile(const std::string & fileName)
 
         } while(true);
     }
-
-    inputFile.seekg(0, std::ios::end);
-    if (inputFile.tellg() == 0) {
-        inputFile.close();
-        return "File '" + fileName + "' is empty.\n";
-    }
-
-    inputFile.seekg(0, std::ios::beg);
-
+    
     size_t numStudents = 0;
     inputFile.read((char*) &numStudents, sizeof(numStudents));
 
     std::string name, lastName, address, pesel;
     int indexNumber, genderValue;
     Gender gender;
+
+    std::vector<Student> temp;
 
     for(unsigned int i = 0; i < numStudents; i++){
 
@@ -215,7 +216,15 @@ std::string Database::readFromFile(const std::string & fileName)
         gender = static_cast<Gender>(genderValue);
 
         Student student(name, lastName, address, indexNumber, pesel, gender);
-        students_.push_back(student);
+        temp.push_back(student);
+    }
+
+    if(!students_.empty()){
+        students_.erase(students_.begin(), students_.end());
+    }
+
+    for(unsigned int i = 0; i < numStudents; i++){
+        students_.push_back(temp.at(i));
     }
 
     inputFile.close();
