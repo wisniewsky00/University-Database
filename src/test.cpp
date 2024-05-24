@@ -212,9 +212,5 @@ TEST_F(DatabaseTest, ReadDbFromFile)
              "Kamil Kowalski; ul. Polna 8, 00-200 Warszawa; 149321; 11332244567; Male\n"
              "Natalia Nowak; ul. Mila 3, 00-200 Warszawa; 654321; 76544332211; Female\n";
   EXPECT_EQ(content, expected);
-
-  content = db.readFromFile("Database1");
-  expected = "Current database is not empty.\n";
-  EXPECT_EQ(content, expected);
 }
 

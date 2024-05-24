@@ -157,8 +157,24 @@ std::string Database::readFromFile(const std::string & fileName)
         return "Failed to open file '" + fileName + "' for reading\n";
     }
 
+    std::string answer;
+
     if(!students_.empty()){
-        return "Current database is not empty.\n";
+        std::cout << "Current database is not empty.\nDo you want to overwrite current database? [Y, n]: ";
+        std::cin >> answer;
+        std::cout << std::endl;
+        do {
+            if(answer == "Y" || answer == "y"){
+              students_.erase(students_.begin(), students_.end());
+              break;  
+            }
+            else if (answer == "N" || answer == "n") return "";
+
+            std::cout << "Invalid character entered! Please try again.\nDo you want to overwrite current database? [Y, n]: ";
+            std::cin >> answer;
+            std::cout << std::endl;
+
+        } while(true);
     }
 
     inputFile.seekg(0, std::ios::end);
