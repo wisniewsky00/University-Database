@@ -5,7 +5,7 @@
 void printMenu();
 void addStudent(Database & db);
 int countDigit(long long n);
-int getIndexNumber();
+int getIndexNumber(int flag);
 std::string getPESEL();
 sortingType getSortType();
 void getFirstLastName(std::string & firstName, std::string & Lastname);
@@ -47,7 +47,7 @@ int main(){
                 std::cout << "\n" << db.sortByLastName() << std::endl;
                 break;
             case 7:
-                indexNumber = getIndexNumber();
+                indexNumber = getIndexNumber(1);
                 std::cout << "\n" << db.deleteByIndexNumber(indexNumber) << std::endl;
                 break;
             case 8:
@@ -96,7 +96,7 @@ void addStudent(Database & db){
     std::cout << "Enter address: ";
     std::getline(std::cin, address);
 
-    indexNumber = getIndexNumber();
+    indexNumber = getIndexNumber(0);
     pesel = getPESEL();
    
     if(pesel.at(9) % 2) gender = Gender::Male;
@@ -118,11 +118,15 @@ int countDigit(long long n)
     return count;
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-int getIndexNumber(){
+int getIndexNumber(int flag){
 
     int indexNumber;
     std::string index;
     bool success;
+
+    if(flag){
+        getline(std::cin, index);
+    }
 
     do{
         success = true;
